@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sane's Work</title>
+  <style>
+    @font-face {
+      font-family: "Bemio";
+      src: url("../img/bemio.otf") format("truetype");
+    }
+
+
+    body {
+      font-family: "Poppins", sans-serif;
+      font-weight: 700;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .tab-button {
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      background-color: #000000;
+      color: white;
+      font-family: "Bemio";
+      border: none;
+      border-radius: 5px;
+    }
+
+
+    h1 {
+      font-family: "Bemio", sans-serif;
+      font-size: 7rem;
+      color: #000;
+    }
+
+    h2 {
+      font-family: "Bemio", sans-serif;
+      font-size: 5rem;
+      color: #000;
+    }
+
+    h3 {
+      font-family: "Bemio", sans-serif;
+      font-size: 2rem;
+      color: #000;
+    }
+
+    .tab-button.active {
+      background-color: #212121;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      margin: -5px;
+    }
+
+    .gallery img {
+      width: calc(25% - 10px);
+      margin: 5px;
+      border-radius: 10px;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+
+    .marquee {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgb(57, 184, 146);
+      border-bottom: 1px solid black;
+      overflow: hidden;
+      white-space: nowrap;
+      z-index: 20;
+      height: 25px;
+    }
+
+    .marquee p {
+      display: inline-block;
+      padding: 0;
+      margin: 0;
+      line-height: 25px;
+      font-family: sans-serif;
+      font-weight: 400;
+      animation: marquee 6s linear infinite;
+    }
+
+    @keyframes marquee {
+      0% {
+        transform: translateX(100%);
+      }
+
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    .marquee .marquee-content {
+      display: inline-block;
+      white-space: nowrap;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <h2>SANE'S WORK</h2>
+    <div>
+      <button class="tab-button active" onclick="showTab('completed')">COMPLETED</button>
+      <button class="tab-button" onclick="showTab('practice')">PRACTICE</button>
+      <button class="tab-button" onclick="showTab('comics')">COMICS</button>
+    </div>
+  </header>
+  <div class="marquee">
+    <p class="marquee-content">
+      OUT OF SERVICE RIGHT NOW • OUT OF SERVICE RIGHT NOW •
+    </p>
+    <p class="marquee-content" style="visibility: hidden;">
+      l
+    </p>
+    <p class="marquee-content">
+      OUT OF SERVICE RIGHT NOW • OUT OF SERVICE RIGHT NOW •
+    </p>
+    <p class="marquee-content" style="visibility: hidden;">
+      l
+    </p>
+    <p class="marquee-content">
+      OUT OF SERVICE RIGHT NOW • OUT OF SERVICE RIGHT NOW •
+    </p>
+    <p class="marquee-content" style="visibility: hidden;">
+      l
+    </p>
+    <p class="marquee-content">
+      OUT OF SERVICE RIGHT NOW • OUT OF SERVICE RIGHT NOW •
+    </p>
+    <p class="marquee-content" style="visibility: hidden;">
+      l
+    </p>
+    <p class="marquee-content">
+      OUT OF SERVICE RIGHT NOW • OUT OF SERVICE RIGHT NOW •
+    </p>
+    <p class="marquee-content" style="visibility: hidden;">
+      l
+    </p>
+    <p class="marquee-content">
+      OUT OF SERVICE RIGHT NOW • OUT OF SERVICE RIGHT NOW •
+    </p>
+    <p class="marquee-content" style="visibility: hidden;">
+      l
+    </p>
+
+  </div>
+  <div id="completed" class="tab-content active">
+    <h3>COMPLETED</h3>
+    <div id="completed-gallery" class="gallery"></div>
+  </div>
+
+  <div id="practice" class="tab-content">
+    <h3>PRACTICE</h3>
+    <div id="practice-gallery" class="gallery"></div>
+  </div>
+
+  <div id="comics" class="tab-content">
+    <h3>COMICS</h3>
+    <div id="comics-gallery" class="gallery"></div>
+  </div>
+
+  <footer>
+    <p>&copy; 2024 Sane Studios. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function showTab(tabName) {
+      const tabContents = document.querySelectorAll('.tab-content');
+      tabContents.forEach(tab => {
+        tab.classList.remove('active');
+      });
+
+      const tabButtons = document.querySelectorAll('.tab-button');
+      tabButtons.forEach(button => {
+        button.classList.remove('active');
+      });
+
+      document.getElementById(tabName).classList.add('active');
+      document.querySelector(`.tab-button[onclick="showTab('${tabName}')"]`).classList.add('active');
+
+      loadImages(tabName);
+    }
+
+    function loadImages(tabName) {
+      const gallery = document.getElementById(`${tabName}-gallery`);
+      gallery.innerHTML = '';
+
+      const folderPath = `${tabName}/`;
+
+      for (let i = 1; i <= 512; i++) {
+        const imgName = `img${i}.jpg`;
+        const imgElement = document.createElement('img');
+        imgElement.src = folderPath + imgName;
+        imgElement.alt = imgName;
+
+        imgElement.onload = function () {
+          gallery.appendChild(imgElement);
+          if (tabName === 'completed') {
+            new Masonry(gallery, {
+              itemSelector: 'img',
+              columnWidth: 'img',
+              percentPosition: true
+            });
+          }
+        };
+
+        imgElement.onerror = function () {
+          console.log(`Image not found: ${imgName}`);
+        };
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      showTab('completed');
+    });
+  </script>
+</body>
+
+</html>

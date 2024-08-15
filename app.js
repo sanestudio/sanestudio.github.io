@@ -10,7 +10,7 @@ document.addEventListener("mousemove", (e) => {
     console.log(angleDeg);
     const eyes = document.querySelectorAll(".eye");
     eyes.forEach((eye) => {
-        eye.style.transform = `rotate(${90 + angleDeg}deg)`; //eye rotation
+        eye.style.transform = `rotate(${90 + angleDeg}deg)`;
     });
 });
 function angle(cx, cy, ex, ey) {
@@ -59,3 +59,9 @@ document.getElementById("hand").addEventListener("click", function () {
     this.style.display = "none";
     links.style.display = "none";
 });
+
+var modal = document.getElementById('myModal');
+var span = document.getElementsByClassName("close")[0];
+span.onclick = function() { 
+    modal.style.display = "none";
+}

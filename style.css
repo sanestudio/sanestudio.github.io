@@ -1,5 +1,5 @@
 @font-face {
-  font-family: "CustomFont";
+  font-family: "Bemio";
   src: url("./img/bemio.otf") format("truetype");
 }
 
@@ -7,11 +7,16 @@ body {
   margin: 0;
   height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   position: relative;
   font-family: "Poppins", sans-serif;
   font-weight: 700;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none; 
 }
 
 .marquee {
@@ -20,20 +25,21 @@ body {
   left: 0;
   width: 100%;
   background-color: rgb(57, 184, 146);
-  border-bottom: 2px solid black;
+  border-bottom: 1px solid black;
   overflow: hidden;
   white-space: nowrap;
   z-index: 20;
-  height: 30px;
+  height: 25px;
 }
 
 .marquee p {
   display: inline-block;
   padding: 0;
   margin: 0;
-  line-height: 30px;
+  line-height: 25px;
   font-family: sans-serif;
-  animation: marquee 20s linear infinite;
+  font-weight: 400;
+  animation: marquee 6s linear infinite;
 }
 
 @keyframes marquee {
@@ -45,13 +51,28 @@ body {
   }
 }
 
+.marquee .marquee-content {
+  display: inline-block;
+  white-space: nowrap;
+}
+
 .date-time {
   position: fixed;
-  top: 40px;
+  top: 30px;
   right: 10px;
   color: black;
-  font-family: sans-serif;
+  font-family: "Poppins", sans-serif;
   text-align: right;
+  z-index: 30;
+}
+
+.tils {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  color: black;
+  font-family: "Poppins", sans-serif;
+  text-align: left;
   z-index: 30;
 }
 
@@ -69,8 +90,19 @@ h1 {
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: "CustomFont", sans-serif;
-  font-size: 10rem;
+  font-family: "Bemio", sans-serif;
+  font-size: 7rem;
+  color: #000;
+  z-index: 10;
+}
+
+h2 {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Bemio", sans-serif;
+  font-size: 5rem;
   color: #000;
   z-index: 10;
 }
@@ -135,7 +167,7 @@ h1 {
 @keyframes handSlideUp {
   0% {
     transform: translateY(100%);
-    opacity: 0;
+    opacity: 1;
   }
   100% {
     transform: translateY(0);
@@ -158,10 +190,6 @@ h1 {
   text-decoration: none;
   color: black;
   transition: color 0.3s;
-}
-
-#links a:hover {
-  color: rgb(173, 12, 0);
 }
 
 @media (max-width: 768px) {
