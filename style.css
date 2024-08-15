@@ -11,6 +11,7 @@ body {
   justify-content: flex-start;
   align-items: center;
   position: relative;
+  background-color: #0c7c6b;
   font-family: "Poppins", sans-serif;
   font-weight: 700;
   user-select: none;
@@ -24,7 +25,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: rgb(57, 184, 146);
+  background-color: rgb(255, 191, 0);
   border-bottom: 1px solid black;
   overflow: hidden;
   white-space: nowrap;
