@@ -1,25 +1,12 @@
-document.addEventListener("mousemove", (e) => {
-    console.log(e);
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
-    const anchor = document.getElementById("anchor");
-    const rekt = anchor.getBoundingClientRect();
-    const anchorX = rekt.left + rekt.width / 2;
-    const anchorY = rekt.top + rekt.height / 2;
-    const angleDeg = angle(mouseX, mouseY, anchorX, anchorY);
-    console.log(angleDeg);
-    const eyes = document.querySelectorAll(".eye");
-    eyes.forEach((eye) => {
-        eye.style.transform = `rotate(${90 + angleDeg}deg)`;
-    });
-});
-function angle(cx, cy, ex, ey) {
+// Function to calculate the angle between two points
+function calculateAngle(cx, cy, ex, ey) {
     const dy = ey - cy;
     const dx = ex - cx;
     const rad = Math.atan2(dy, dx);
-    const deg = (rad * 180) / Math.PI;
-    return deg;
+    return (rad * 180) / Math.PI; // Convert radians to degrees
 }
+
+// Function to update the date and time display
 function updateDateTime() {
     const now = new Date();
     const date = now.toLocaleDateString("en-US");
@@ -29,39 +16,68 @@ function updateDateTime() {
         <span>${time}</span>
     `;
 }
+
+// Event listener for mouse movement
+document.addEventListener("mousemove", (e) => {
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+    const anchor = document.getElementById("anchor");
+    const { left, top, width, height } = anchor.getBoundingClientRect();
+    const anchorX = left + width / 2;
+    const anchorY = top + height / 2;
+    const angleDeg = calculateAngle(mouseX, mouseY, anchorX, anchorY);
+
+    // Rotate eyes based on mouse position
+    document.querySelectorAll(".eye").forEach((eye) => {
+        eye.style.transform = `rotate(${90 + angleDeg}deg)`;
+    });
+});
+
+// Update date and time every second
 setInterval(updateDateTime, 1000);
 updateDateTime();
-document.getElementById("anchor").addEventListener("click", function () {
-    const saneImage = this;
+
+// Event listener for anchor click
+document.getElementById("anchor").addEventListener("click", () => {
+    const anchor = document.getElementById("anchor");
     const handImage = document.getElementById("hand");
-    const eyes = document.querySelectorAll(".eye");
     const links = document.getElementById("links");
-    saneImage.style.animation = "moveDown 0.5s forwards";
-    eyes.forEach((eye) => {
+
+    // Animate anchor and eyes
+    anchor.style.animation = "moveDown 0.5s forwards";
+    document.querySelectorAll(".eye").forEach((eye) => {
         eye.style.animation = "moveDown 0.5s forwards";
     });
+
+    // Show hand image and links after animation
     setTimeout(() => {
         handImage.style.display = "block";
         handImage.style.animation = "handSlideUp 0.5s forwards";
         links.style.display = "flex";
     }, 500);
 });
-document.getElementById("hand").addEventListener("click", function () {
-    const saneImage = document.getElementById("anchor");
-    const eyes = document.querySelectorAll(".eye");
+
+// Event listener for hand click
+document.getElementById("hand").addEventListener("click", () => {
+    const anchor = document.getElementById("anchor");
     const links = document.getElementById("links");
-    saneImage.style.animation = "";
-    saneImage.style.transform = "translateY(0)";
+    const eyes = document.querySelectorAll(".eye");
+
+    // Reset animations and hide elements
+    anchor.style.animation = "";
+    anchor.style.transform = "translateY(0)";
     eyes.forEach((eye) => {
         eye.style.animation = "";
         eye.style.transform = "translateY(0)";
     });
-    this.style.display = "none";
+
+    document.getElementById("hand").style.display = "none";
     links.style.display = "none";
 });
 
-var modal = document.getElementById('myModal');
-var span = document.getElementsByClassName("close")[0];
-span.onclick = function() { 
-    modal.style.display = "none";
-}
+// Modal close functionality
+const modal = document.getElementById('myModal');
+const closeButton = document.getElementsByClassName("close")[0];
+closeButton.onclick = () => {
+    modal.style.display = "none";
+};
